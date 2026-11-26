@@ -75,7 +75,7 @@ nav a.on{background:var(--head);color:var(--card)}
 .mi svg{fill:currentColor}
 body::before{content:"";position:fixed;inset:0;z-index:1500;background:rgba(30,10,26,.28);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,visibility .25s}
 body:has(.menu.open)::before{opacity:1;visibility:visible;pointer-events:auto}
-.hero:has(.menu.open){z-index:1600;isolation:auto}
+.hero:has(.menu.open){isolation:auto}
 .bcard:has(.menu.open){z-index:1600}
 /* sections */
 .wrap{max-width:1180px;margin:auto;padding:64px 5%}
@@ -320,10 +320,20 @@ html.js .rv:not(.in){animation:rvfo .01s 3s forwards}
 header{border-bottom:0}
 /* menu open: dim and blur only the page below, never the logo or clinic name (no :has() needed) */
 body.mo::before{opacity:1;visibility:visible;pointer-events:auto}
-.hero.mup{z-index:1600;isolation:auto}
+.hero.mup{z-index:auto;isolation:auto}
+.hero.mup>.bookwrap,.hero.mup>.btn.call{z-index:1600}
+header{z-index:1400}
 .bcard.mup{z-index:1600}
 
 /* about page icons: duotone, round badge */
 .nfico{border-radius:50%;width:58px;height:58px;background:radial-gradient(circle at 30% 25%,#fff 0,var(--ic) 70%);box-shadow:0 8px 18px -10px var(--shadow)}
 .nfico svg{width:28px;height:28px}
 .tcard.hi .nfico{background:rgba(255,255,255,.2);box-shadow:none}
+
+/* home promo card, same look as the offers discount card */
+#promo{padding-top:34px;padding-bottom:0}
+.promo{max-width:760px;margin:0 auto;text-align:center;color:#fff;background:linear-gradient(160deg,#7a1220,#d8344a);border-radius:22px;padding:26px 20px;box-shadow:0 14px 30px -22px var(--shadow)}
+.promo h3{margin:0;font-size:1.5rem;color:#fff}
+.promo p{margin:10px 0 18px;font-weight:700;font-size:1.05rem;color:#fff}
+.promo .promo-b{display:inline-block;background:#fffbf2;color:#7a1220;border-radius:999px;padding:11px 26px;font-weight:800;text-decoration:none}
+#promo[hidden]{display:none}
