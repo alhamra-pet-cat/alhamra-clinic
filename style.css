@@ -230,3 +230,29 @@ footer{border-top:1px solid var(--border);margin-top:20px;padding:44px max(5%,ca
  .stile{min-width:calc(50% - 7px);flex:1}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html.js .rv{opacity:1;transform:none}}
+
+
+@media (max-width:1100px){
+ .navbtn{display:inline-flex!important}
+ nav{position:absolute;top:100%;inset-inline:3% ;flex-direction:column;align-items:stretch;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:8px;box-shadow:0 22px 44px -16px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s}
+ nav.open{opacity:1;visibility:visible;transform:none}
+ nav a{padding:11px 16px;border-radius:12px}
+}
+/* motion: transform/opacity only */
+html{scroll-behavior:smooth}
+header{transition:box-shadow .3s}
+header.sc{box-shadow:0 10px 30px -14px rgba(60,5,15,.45)}
+nav a{position:relative}
+nav a:not(.on)::after{content:"";position:absolute;inset-inline:22%;bottom:3px;height:2px;border-radius:2px;background:#d8344a;transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+nav a:not(.on):hover::after{transform:scaleX(1)}
+.btn:active,.book:active,.tools button:active{transform:scale(.97)}
+.hero h1,.hero p,.hero .badge,.hero .hlogo{animation:up .8s cubic-bezier(.2,.7,.2,1) both}
+.hero p{animation-delay:.12s}.hero .badge{animation-delay:.05s}
+.hero .bkwrap,.hero .btn{animation:up .8s .25s cubic-bezier(.2,.7,.2,1) both}
+.soonico{animation:floaty 4s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.card:hover>.ic,.fcard:hover .fico,.tcard:hover .fico{transform:translateY(-3px) rotate(-3deg)}
+.card>.ic,.fico{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.dcard:hover .dav{transform:scale(1.06)}.dav{transition:transform .3s}
+.stile{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}.stile:hover{transform:translateY(-4px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
