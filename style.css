@@ -299,3 +299,7 @@ nav a:not(.on):hover::after{transform:scaleX(1)}
 .pcard .book{margin:10px 0 0;width:100%;min-height:46px;font-size:.98rem}
 .pnote{text-align:center;color:var(--mfg);margin:26px auto 0;max-width:560px}
 .psize{text-align:start;unicode-bidi:plaintext}
+
+/* fail-open reveal: content always shows, even if scripts fail */
+@keyframes rvfo{to{opacity:1;transform:none}}
+html.js .rv:not(.in){animation:rvfo .01s 3s forwards}
