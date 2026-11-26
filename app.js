@@ -57,3 +57,17 @@ if(window.ALHAMRA_OFFERS.length){var o=document.getElementById('offers');if(o)o.
 (function(){var l=document.getElementById('ofLive'),s=document.getElementById('ofSoon');if(l&&s&&Date.now()>=Date.UTC(2026,10,30,21,0,0)){l.hidden=true;s.hidden=false}})();
 
 (function(){var p=document.getElementById('promo');if(p&&Date.now()>=Date.UTC(2026,10,30,21,0,0))p.hidden=true})();
+
+/* shop: live products from the dashboard; the static cards stay as the fallback */
+(function(){var g=document.getElementById('prods');if(!g)return;var t=g.querySelector('.pcard');if(!t)return;
+var U='https://bfmunmgztdenyqyhamsx.supabase.co',K='sb_publishable_nEiXYTbsP7gFM0BaUZY3vQ_SLBuko5D';
+fetch(U+'/rest/v1/products?select=brand,name,size,price,image&visible=eq.true&order=sort.asc,id.asc',{headers:{apikey:K}}).then(function(r){return r.ok?r.json():Promise.reject()}).then(function(rows){
+if(!Array.isArray(rows))return;var f=document.createDocumentFragment();
+rows.forEach(function(r){var c=t.cloneNode(true);c.classList.add('in');
+var im=c.querySelector('.pimg img');if(im){im.src=r.image;im.alt=r.name}
+var b=c.querySelector('.pbrand');if(b)b.textContent=r.brand;
+var n=c.querySelector(':scope > b');if(n)n.textContent=r.name;
+var s=c.querySelector('.psize');if(r.size){if(!s){s=document.createElement('span');s.className='psize';s.dir='ltr';c.insertBefore(s,c.querySelector('.pprice'))}s.textContent=r.size}else if(s)s.remove();
+var st=c.querySelector('.pprice strong');if(st&&st.firstChild)st.firstChild.nodeValue=(Math.round(Number(r.price)*100)/100)+' ';
+f.appendChild(c)});
+g.innerHTML='';g.appendChild(f)}).catch(function(){})})();
