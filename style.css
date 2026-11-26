@@ -339,3 +339,8 @@ header{z-index:1400}
 #promo[hidden]{display:none}
 
 @media (max-width:1000px) and (min-width:641px){.three{grid-template-columns:repeat(2,1fr)}}
+
+.promo{animation:promoIn .5s .05s cubic-bezier(.2,.7,.2,1) both}
+@keyframes promoIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.promo .promo-b{transition:background .25s,color .25s,transform .2s,box-shadow .25s}
+.promo .promo-b:hover,.promo .promo-b:focus-visible{background:#2e9e5b;color:#fff;box-shadow:0 12px 24px -12px rgba(0,0,0,.5);outline:none;transform:translateY(-2px)}
