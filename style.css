@@ -178,11 +178,6 @@ html.js .card.rv.in:hover{transform:translateY(-7px)}
 .stile:hover{transform:translateY(-4px);box-shadow:0 14px 26px -16px var(--shadow)}
 .stile svg{width:40px;height:40px;margin-bottom:6px}
 .stile b{color:var(--fg)}.stile em{font-style:normal;color:var(--mfg);font-size:.82rem;direction:ltr;unicode-bidi:plaintext}
-.stile[data-social=Instagram] svg{fill:url(#igg)}
-.stile[data-social=Facebook] svg{fill:#1877F2}
-.stile[data-social=TikTok] svg,.stile[data-social=Threads] svg{fill:var(--fg)}
-.stile[data-social=TikTok] svg{filter:drop-shadow(-1px -.8px 0 #25F4EE) drop-shadow(1px .8px 0 #FE2C55)}
-.stile[data-social=Snapchat] svg{fill:#FFFC00;stroke:#111;stroke-width:.9px;paint-order:stroke}
 /* footer */
 footer{border-top:1px solid var(--border);margin-top:20px;padding:44px max(5%,calc((100vw - 1180px)/2)) 20px;background:var(--bg)}
 .fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:34px}
@@ -197,11 +192,6 @@ footer{border-top:1px solid var(--border);margin-top:20px;padding:44px max(5%,ca
 .social a{width:44px;height:44px;display:grid;place-items:center;text-decoration:none}
 .social a svg{width:34px;height:34px;transition:transform .2s}
 .social a:hover svg{transform:translateY(-3px) scale(1.12)}
-.social a.wa svg{fill:#25D366}
-.social a[data-social=Instagram] svg{fill:url(#igg)}
-.social a[data-social=Facebook] svg{fill:#1877F2}
-.social a[data-social=Snapchat] svg{fill:#FFFC00;stroke:#111;stroke-width:.9px;paint-order:stroke}
-.social a[data-social=TikTok] svg,.social a[data-social=Threads] svg{fill:var(--fg)}
 .fcopy{text-align:center;color:var(--mfg);font-size:.88rem;margin-top:34px;padding-top:18px;border-top:1px solid var(--border)}
 .fab{position:fixed;bottom:18px;inset-inline-end:16px;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;z-index:900;color:#fff;box-shadow:0 10px 24px -8px rgba(0,0,0,.4);transition:transform .2s,filter .2s;text-decoration:none}
 .fab.wa{background:var(--wa);animation:pulse 2.8s ease-out 2s infinite}
@@ -316,3 +306,24 @@ html.js .rv:not(.in){animation:rvfo .01s 3s forwards}
 .pprice{margin-top:auto;padding-top:6px}
 .pcard .book{flex:none}
 @media (max-width:600px){.pcard>b{min-height:3.9em}}
+
+/* social icons: neutral by default, each takes its own brand colors on hover */
+.social a svg,.stile svg{fill:var(--mfg);stroke:none;transition:fill .25s,transform .25s,filter .25s}
+.social a:hover svg,.social a:focus-visible svg,.stile:hover svg,.stile:focus-visible svg{transition:fill .25s,transform .25s,filter .25s}
+.social a.wa:hover svg,.social a.wa:focus-visible svg{fill:#25D366}
+.social a[data-social=Instagram]:hover svg,.social a[data-social=Instagram]:focus-visible svg,.stile[data-social=Instagram]:hover svg,.stile[data-social=Instagram]:focus-visible svg{fill:url(#igg)}
+.social a[data-social=Facebook]:hover svg,.social a[data-social=Facebook]:focus-visible svg,.stile[data-social=Facebook]:hover svg,.stile[data-social=Facebook]:focus-visible svg{fill:#1877F2}
+.social a[data-social=Snapchat]:hover svg,.social a[data-social=Snapchat]:focus-visible svg,.stile[data-social=Snapchat]:hover svg,.stile[data-social=Snapchat]:focus-visible svg{fill:#FFFC00;stroke:#111;stroke-width:.9px;paint-order:stroke}
+.social a[data-social=TikTok]:hover svg,.social a[data-social=TikTok]:focus-visible svg,.stile[data-social=TikTok]:hover svg,.stile[data-social=TikTok]:focus-visible svg{fill:var(--fg);filter:drop-shadow(-1px -.8px 0 #25F4EE) drop-shadow(1px .8px 0 #FE2C55)}
+.social a[data-social=Threads]:hover svg,.social a[data-social=Threads]:focus-visible svg,.stile[data-social=Threads]:hover svg,.stile[data-social=Threads]:focus-visible svg{fill:var(--fg)}
+/* header: no hairline under the glass */
+header{border-bottom:0}
+/* menu open: dim and blur only the page below, never the logo or clinic name (no :has() needed) */
+body.mo::before{opacity:1;visibility:visible;pointer-events:auto}
+.hero.mup{z-index:1600;isolation:auto}
+.bcard.mup{z-index:1600}
+
+/* about page icons: duotone, round badge */
+.nfico{border-radius:50%;width:58px;height:58px;background:radial-gradient(circle at 30% 25%,#fff 0,var(--ic) 70%);box-shadow:0 8px 18px -10px var(--shadow)}
+.nfico svg{width:28px;height:28px}
+.tcard.hi .nfico{background:rgba(255,255,255,.2);box-shadow:none}
