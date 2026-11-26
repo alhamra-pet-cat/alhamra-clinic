@@ -84,7 +84,7 @@ h2{color:var(--head);font-size:1.9rem;font-weight:800;line-height:1.4}
 h2::after{content:"";display:block;width:52px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--rose),var(--peach));margin:10px auto 0}
 .sub{color:var(--mfg);margin-top:12px}
 .chip{display:inline-block;padding:3px 14px;border-radius:999px;background:var(--ic);color:var(--head);font-weight:700;font-size:.8rem;margin-bottom:8px}
-html.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s;transition-delay:var(--d,0s)}
+html.js .rv{opacity:0;transform:translateY(14px);transition:opacity .35s,transform .35s;transition-delay:var(--d,0s)}
 html.js .rv.in{opacity:1;transform:none}
 .grid{display:grid;gap:20px}
 .svcgrid{grid-template-columns:repeat(4,1fr)}
@@ -121,7 +121,7 @@ html.js .card.rv.in:hover{transform:translateY(-7px)}
 .fico svg,.soonico svg{width:26px;height:26px}
 .fcard h3,.tcard h3{color:var(--head);font-size:1.12rem;margin-bottom:6px}
 .fcard p,.tcard p{color:var(--mfg);font-size:.95rem}
-.three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.three{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:stretch}
 .tcard{padding:34px 28px}
 .tcard .fico{margin:0 0 14px}
 .tcard.hi{background:linear-gradient(135deg,#7a1220,#a81f35 55%,#d8344a);color:#fff;border:0}
@@ -150,10 +150,10 @@ html.js .card.rv.in:hover{transform:translateY(-7px)}
 .row b{color:var(--fg)}
 .bact{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
 .bact .bookwrap{flex:1 1 200px;margin:0;display:block}
-.bact .book{width:100%;margin:0;background:var(--head);border:2px solid var(--head);color:var(--card);min-height:50px}
+.bact .book{width:100%;margin:0;background:transparent;border:2px solid var(--head);color:var(--head);min-height:50px}
 .bact .book:hover,.bact .book[aria-expanded=true]{background:#2e9e5b;border-color:#2e9e5b;color:#fff;outline:none}
 .bact a.book.ghost{flex:1 1 200px;margin:0;background:transparent;border:2px solid var(--head);color:var(--head)}
-.bact a.book.ghost:hover{background:var(--head);color:var(--card)}
+.bact a.book.ghost:hover,.bact a.book.ghost:focus-visible{background:#d8344a;border-color:#d8344a;color:#fff;outline:none}
 .bcard .menu{left:0;inset-inline-start:0;transform:translateY(-6px)}
 .bcard .menu.open{transform:none}
 .bcard .menu{top:auto;bottom:calc(100% + 6px)}
@@ -337,3 +337,5 @@ header{z-index:1400}
 .promo p{margin:10px 0 18px;font-weight:700;font-size:1.05rem;color:#fff}
 .promo .promo-b{display:inline-block;background:#fffbf2;color:#7a1220;border-radius:999px;padding:11px 26px;font-weight:800;text-decoration:none}
 #promo[hidden]{display:none}
+
+@media (max-width:1000px) and (min-width:641px){.three{grid-template-columns:repeat(2,1fr)}}
