@@ -277,3 +277,9 @@ nav a:not(.on):hover::after{transform:scaleX(1)}
 .ofrule{text-align:center;color:var(--mfg);font-weight:700;margin:22px 0 14px}
 @media (max-width:1000px){.ofgrid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.ofgrid{grid-template-columns:1fr}}
+.ofcard .on_{display:flex;flex-direction:column;gap:2px}
+.ofcard .sub{font-weight:500;font-size:.8rem;color:var(--mfg);line-height:1.5}
+.ofnote{margin-top:14px;padding:10px 12px;border-radius:14px;background:var(--accent);display:flex;flex-direction:column;gap:3px;font-size:.88rem;color:var(--fg)}
+.ofnote b{color:var(--head)}
+.ofcard>.ofnote:first-of-type{margin:0 0 12px}
+.ofcard .vnote{margin-top:14px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.16);font-weight:600;font-size:.9rem}
