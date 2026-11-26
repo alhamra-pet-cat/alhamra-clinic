@@ -256,3 +256,24 @@ nav a:not(.on):hover::after{transform:scaleX(1)}
 .dcard:hover .dav{transform:scale(1.06)}.dav{transition:transform .3s}
 .stile{transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}.stile:hover{transform:translateY(-4px)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* offers */
+.ofban{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;justify-content:center;padding:16px 22px;border-radius:20px;background:linear-gradient(135deg,#7a1220,#d8344a);color:#fff;text-align:center;margin-bottom:22px}
+.ofban b{font-size:1.25rem}.ofban span{background:rgba(255,255,255,.18);padding:4px 14px;border-radius:999px;font-weight:700}
+.ofgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ofcard{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:20px 18px;box-shadow:0 14px 30px -22px var(--shadow);transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.ofcard:hover{transform:translateY(-5px);box-shadow:0 22px 36px -20px var(--shadow)}
+.ofcard h3{margin:0 0 12px;color:var(--head);font-size:1.15rem;padding-bottom:10px;border-bottom:2px solid var(--accent)}
+.ofcard ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ofcard li{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700}
+.ofcard .pr{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.ofcard .pr b{background:var(--rose);color:#fff;border-radius:12px;padding:4px 12px;font-size:1.05rem}
+.ofcard .pr i{font-style:normal;font-size:.8rem;color:var(--mfg)}
+.ofcard .pr s{color:var(--mfg);font-size:.85rem}.ofcard .pr small{color:var(--mfg);font-size:.72rem;font-weight:600}
+.ofcard.big{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#7a1220,#d8344a);color:#fff;border:0}
+.ofcard.big h3{color:#fff;border-color:rgba(255,255,255,.25)}
+.ofcard .pct{font-size:5rem;font-weight:800;line-height:1}.ofcard .pct span{font-size:2.4rem;color:#f8caa6}
+.ofcard.big p{margin:8px 0 0;font-weight:700;font-size:1.1rem}
+.ofrule{text-align:center;color:var(--mfg);font-weight:700;margin:22px 0 14px}
+@media (max-width:1000px){.ofgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.ofgrid{grid-template-columns:1fr}}
