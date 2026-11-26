@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>لوحة المنتجات | عيادة قطتي الأليفة</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--red:#7a1220;--rose:#d8344a;--cream:#fffbf2;--line:#f0d9cc}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--cream);color:#2b1a1c}
+header{background:linear-gradient(135deg,#7a1220,#d8344a);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+header h1{font-size:1.15rem;margin:0}header a,header button{color:#fff;background:rgba(255,255,255,.18);border:0;border-radius:999px;padding:8px 16px;font:inherit;cursor:pointer;text-decoration:none}
+main{max-width:1100px;margin:18px auto;padding:0 14px}
+.box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+input,select{font:inherit;padding:9px 10px;border:1px solid #d9c2b8;border-radius:10px;width:100%;background:#fff}
+label{display:block;font-size:.85rem;margin:8px 0 4px;color:#6b4a4f}
+button.p{background:var(--red);color:#fff;border:0;border-radius:999px;padding:10px 20px;font:inherit;cursor:pointer}
+button.p:hover{background:var(--rose)}button.s{background:#fff;border:1px solid var(--red);color:var(--red);border-radius:999px;padding:8px 14px;font:inherit;cursor:pointer}
+button.d{background:#fff;border:1px solid #c33;color:#c33;border-radius:999px;padding:8px 14px;font:inherit;cursor:pointer}
+.login{max-width:380px;margin:60px auto}.msg{margin:10px 0;padding:10px 12px;border-radius:10px;background:#fff3f3;color:#a11;display:none}.msg.ok{background:#eefaf1;color:#176b34}
+.row{display:grid;grid-template-columns:70px 1.1fr 2fr .8fr .8fr auto;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
+.row img{width:60px;height:75px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+.row.hid{opacity:.55}.acts{display:flex;gap:6px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+@media(max-width:760px){.row{grid-template-columns:70px 1fr}.row>*:nth-child(n+3){grid-column:1/-1}}
+small{color:#7a5a5f}
+</style></head><body>
+<header><h1>لوحة المنتجات</h1><div><a href="shop.html" target="_blank">فتح المتجر</a> <button id="out" hidden>تسجيل الخروج</button></div></header>
+<main>
+<div id="loginBox" class="box login"><h2 style="margin-top:0">تسجيل الدخول</h2>
+<form id="lf"><label>البريد</label><input id="em" type="email" autocomplete="username" value="mpc000clinic@gmail.com" required><label>كلمة المرور</label><input id="pw" type="password" autocomplete="current-password" required><div id="lm" class="msg"></div><p><button class="p" type="submit">دخول</button></p></form></div>
+<div id="app" hidden>
+<div class="box"><h3 style="margin-top:0">إضافة منتج</h3><div class="grid2">
+<div><label>الماركة</label><input id="nb"></div><div><label>اسم المنتج</label><input id="nn"></div><div><label>الحجم (اختياري)</label><input id="ns" placeholder="1.5 kg"></div><div><label>السعر (ر.س)</label><input id="np" type="number" min="0" step="1"></div><div><label>الصورة</label><input id="nf" type="file" accept="image/*"></div></div>
+<p><button class="p" id="add">إضافة</button></p><div id="am" class="msg"></div></div>
+<div class="box"><h3 style="margin-top:0">المنتجات <small>(الأسعار تقريبية. أي تغيير يظهر في المتجر فورًا بعد الحفظ)</small></h3><div id="list">جارٍ التحميل...</div></div>
+</div></main>
+<script>
+var U='https://bfmunmgztdenyqyhamsx.supabase.co',K='sb_publishable_nEiXYTbsP7gFM0BaUZY3vQ_SLBuko5D';
+var $=function(i){return document.getElementById(i)},S=null;
+function msg(el,t,ok){el.textContent=t;el.className='msg'+(ok?' ok':'');el.style.display=t?'block':'none'}
+function save(s){S=s;if(s)localStorage.setItem('mpcAdmin',JSON.stringify({r:s.refresh_token}));else localStorage.removeItem('mpcAdmin')}
+function tok(b){return fetch(U+'/auth/v1/token?grant_type='+b.g,{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify(b.b)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.msg||j.error_description||'خطأ');return j})})}
+function api(path,opt){opt=opt||{};opt.headers=Object.assign({apikey:K,Authorization:'Bearer '+S.access_token,'Content-Type':'application/json'},opt.headers||{});return fetch(U+path,opt).then(function(r){if(r.status===401&&!opt._r){return tok({g:'refresh_token',b:{refresh_token:S.refresh_token}}).then(function(j){save(j);opt._r=1;return api(path,opt)})}return r})}
+function show(on){$('loginBox').hidden=on;$('app').hidden=!on;$('out').hidden=!on}
+$('lf').onsubmit=function(e){e.preventDefault();msg($('lm'),'');tok({g:'password',b:{email:$('em').value.trim(),password:$('pw').value}}).then(function(j){save(j);show(true);load()}).catch(function(x){msg($('lm'),'تعذر الدخول. تأكد من البريد وكلمة المرور.')})};
+$('out').onclick=function(){save(null);show(false)};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var rows=[];
+function load(){api('/rest/v1/products?select=*&order=sort.asc,id.asc').then(function(r){return r.json()}).then(function(j){rows=j;draw()}).catch(function(){$('list').textContent='تعذر التحميل'})}
+function draw(){var h='';rows.forEach(function(p,i){h+='<div class="row'+(p.visible?'':' hid')+'" data-i="'+i+'"><img src="'+esc(p.image)+'" alt=""><div><label>الماركة</label><input data-f="brand" value="'+esc(p.brand)+'"></div><div><label>الاسم</label><input data-f="name" value="'+esc(p.name)+'"></div><div><label>الحجم</label><input data-f="size" value="'+esc(p.size)+'"></div><div><label>السعر (ر.س)</label><input data-f="price" type="number" step="1" value="'+Number(p.price)+'"></div><div class="acts"><button class="p" data-a="save">حفظ</button><button class="s" data-a="vis">'+(p.visible?'إخفاء':'إظهار')+'</button><button class="s" data-a="up">↑</button><button class="s" data-a="dn">↓</button><button class="d" data-a="del">حذف</button></div></div>'});$('list').innerHTML=h||'لا توجد منتجات'}
+$('list').onclick=function(e){var b=e.target.closest('button');if(!b)return;var row=b.closest('.row'),i=+row.dataset.i,p=rows[i],a=b.dataset.a;
+ function patch(o,done){api('/rest/v1/products?id=eq.'+p.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify(Object.assign({updated_at:new Date().toISOString()},o))}).then(function(r){if(!r.ok)throw 0;done&&done()}).catch(function(){alert('لم يتم الحفظ')})}
+ if(a==='save'){var o={};row.querySelectorAll('input').forEach(function(x){o[x.dataset.f]=x.dataset.f==='price'?Number(x.value):x.value.trim()});if(!o.name||!(o.price>=0)){alert('اكتب الاسم والسعر');return}patch(o,function(){Object.assign(p,o);b.textContent='تم الحفظ ✓';setTimeout(function(){b.textContent='حفظ'},1500)})}
+ if(a==='vis'){patch({visible:!p.visible},function(){p.visible=!p.visible;draw()})}
+ if(a==='up'||a==='dn'){var j=a==='up'?i-1:i+1;if(j<0||j>=rows.length)return;var q=rows[j],sp=p.sort,sq=q.sort;if(sp===sq){sq=sp+(a==='up'?-1:1)}
+  api('/rest/v1/products?id=eq.'+p.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({sort:sq})}).then(function(){return api('/rest/v1/products?id=eq.'+q.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({sort:sp})})}).then(load)}
+ if(a==='del'){if(confirm('حذف هذا المنتج نهائيًا؟ (لو عايز تخفيه بس اضغط إخفاء)'))api('/rest/v1/products?id=eq.'+p.id,{method:'DELETE'}).then(load)}}
+function resize(file){return new Promise(function(res,rej){var im=new Image(),u=URL.createObjectURL(file);im.onload=function(){var W=480,H=600,c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,H);var s=Math.min(W/im.width,H/im.height);var w=im.width*s,h=im.height*s;x.drawImage(im,(W-w)/2,(H-h)/2,w,h);c.toBlob(function(b){b?res(b):rej()},'image/webp',.8)};im.onerror=rej;im.src=u})}
+$('add').onclick=function(){var f=$('nf').files[0],brand=$('nb').value.trim(),name=$('nn').value.trim(),price=Number($('np').value);msg($('am'),'');if(!name||!brand||!(price>=0)||$('np').value===''||!f){msg($('am'),'اكتب الماركة والاسم والسعر واختر صورة');return}
+ var btn=$('add');btn.disabled=true;msg($('am'),'جارٍ الرفع...',1);
+ resize(f).then(function(b){var fn='p'+Date.now()+'.webp';return api('/storage/v1/object/products/'+fn,{method:'POST',headers:{'Content-Type':'image/webp'},body:b}).then(function(r){if(!r.ok)throw 0;return U+'/storage/v1/object/public/products/'+fn})})
+ .then(function(url){var mx=rows.reduce(function(m,r){return Math.max(m,r.sort)},0);return api('/rest/v1/products',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({sort:mx+1,brand:brand,name:name,size:$('ns').value.trim(),price:price,image:url})})}).then(function(r){if(!r.ok)throw 0;['nb','nn','ns','np','nf'].forEach(function(i){$(i).value=''});msg($('am'),'تمت الإضافة',1);load()}).catch(function(){msg($('am'),'لم تتم الإضافة')}).then(function(){btn.disabled=false})};
+(function(){var s=null;try{s=JSON.parse(localStorage.getItem('mpcAdmin'))}catch(e){}if(s&&s.r){tok({g:'refresh_token',b:{refresh_token:s.r}}).then(function(j){save(j);show(true);load()}).catch(function(){save(null)})}})();
+</script></body></html>
