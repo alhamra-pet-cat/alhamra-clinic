@@ -347,3 +347,19 @@ header{z-index:1400}
 
 [hidden]{display:none!important}
 .bhrs{margin:10px 0 0;color:var(--mfg);font-weight:700}
+
+/* phone header: one-line name, smaller controls, more room */
+@media (max-width:560px){
+ header{gap:8px;padding:8px 3.5%}
+ .brand{gap:7px;flex:1 1 auto;min-width:0}
+ .brand img{height:32px}
+ .brand span{font-size:.98rem}
+ .brand small{font-size:.78rem;white-space:nowrap;font-weight:600}
+ .brand span,.brand small{white-space:nowrap}
+ .tools{gap:5px}
+ .tools button,.hwa{height:32px;min-width:32px;padding:0 9px;font-size:.72rem;gap:4px}
+ .tools svg{width:14px;height:14px}
+}
+@media (max-width:360px){
+ .tools button{padding:0 7px}.brand img{height:28px}.brand span{font-size:.92rem}.brand small{font-size:.74rem}
+}
