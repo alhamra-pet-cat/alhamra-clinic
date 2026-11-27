@@ -39,7 +39,9 @@ textarea{font:inherit;padding:9px 10px;border:1px solid #d9c2b8;border-radius:10
 <div><label>الماركة</label><input id="nb"></div><div><label>اسم المنتج</label><input id="nn"></div><div><label>الحجم (اختياري)</label><input id="ns" placeholder="1.5 kg"></div><div><label>السعر (ر.س)</label><input id="np" type="number" min="0" step="1"></div><div><label>الصورة</label><input id="nf" type="file" accept="image/*"></div></div>
 <p><button class="p" id="add">إضافة</button></p><div id="am" class="msg"></div></div>
 <div class="box"><h3 style="margin-top:0">المنتجات <small>(الأسعار تقريبية. أي تغيير يظهر في المتجر فورًا بعد الحفظ)</small></h3><div id="list">جارٍ التحميل...</div></div>
-</div></div></main>
+</div>
+<div class="box"><h3 style="margin-top:0">تغيير كلمة مرور اللوحة</h3><label>كلمة المرور الجديدة (8 أحرف على الأقل)</label><input id="npw" type="password" autocomplete="new-password"><p><button class="s" id="npb">تغيير كلمة المرور</button></p><div id="npm" class="msg"></div></div>
+</div></main>
 <script>
 var U='https://bfmunmgztdenyqyhamsx.supabase.co',K='sb_publishable_nEiXYTbsP7gFM0BaUZY3vQ_SLBuko5D';
 var $=function(i){return document.getElementById(i)},S=null;
@@ -109,6 +111,7 @@ $('saveAll').onclick=function(){syncFlags();collect();var c=clean(C.contact);if(
  rows=rows.map(function(r){return{key:r.key,value:r.value===null?[]:r.value,updated_at:new Date().toISOString()}});
  var b=$('saveAll');b.disabled=true;msg($('sm'),'جارٍ الحفظ...',1);
  api('/rest/v1/site_content?on_conflict=key',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)}).then(function(r){if(!r.ok)throw 0;msg($('sm'),'تم الحفظ. التغيير يظهر في الموقع فورًا.',1)}).catch(function(){msg($('sm'),'لم يتم الحفظ')}).then(function(){b.disabled=false})};
+$('npb').onclick=function(){var v=$('npw').value;if(v.length<8){msg($('npm'),'كلمة المرور قصيرة');return}api('/auth/v1/user',{method:'PUT',body:JSON.stringify({password:v})}).then(function(r){if(!r.ok)throw 0;$('npw').value='';msg($('npm'),'تم تغيير كلمة المرور',1)}).catch(function(){msg($('npm'),'لم يتم التغيير. سجل الدخول مرة أخرى ثم جرب')})};
 function loadC(){return api('/rest/v1/site_content?select=key,value').then(function(r){return r.json()}).then(function(rows){rows.forEach(function(r){var v=r.value;if(r.key==='doctors'){C.doctors=Array.isArray(v)&&v.length?v:null}else C[r.key]=v});C.flags=C.flags||{};C.prices=C.prices||{};C.contact=C.contact||{};C.texts=C.texts||{};C.svc_wa=C.svc_wa||{};if(Array.isArray(C.flags))C.flags={};if(Array.isArray(C.prices))C.prices={};if(Array.isArray(C.contact))C.contact={};if(Array.isArray(C.texts))C.texts={};if(Array.isArray(C.svc_wa))C.svc_wa={};renderOffers();renderSvc();renderDoc();renderCt();renderTx()})}
 $('tabs').onclick=function(e){var b=e.target.closest('button');if(!b)return;syncFlags();collect();[].forEach.call($('tabs').children,function(x){x.classList.toggle('on',x===b)});['pr','of','sv','dr','ct','tx'].forEach(function(t){$('p_'+t).hidden=t!==b.dataset.t});$('savebar').hidden=b.dataset.t==='pr'};
 </script></body></html>
